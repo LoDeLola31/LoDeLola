@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/svg+xml" href="logo.svg">
     <title>Lo de Lola - Almacén</title>
     <style>
         * {
@@ -38,6 +39,10 @@
             justify-content: space-between;
             align-items: center;
             padding: 20px;
+        }
+
+        .logo-img {
+            height: 50px;
         }
 
         .logo {
@@ -154,7 +159,232 @@
             background: #d62839;
         }
 
-        /* FOOTER */
+        .cart-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 200;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .cart-modal.hidden {
+            display: none;
+        }
+
+        .cart-sidebar {
+            background: white;
+            width: 100%;
+            max-width: 450px;
+            height: 100%;
+            overflow-y: auto;
+            box-shadow: -4px 0 12px rgba(0,0,0,0.2);
+        }
+
+        .cart-header {
+            background: #e63946;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+        }
+
+        .cart-header h2 {
+            font-size: 24px;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 32px;
+            cursor: pointer;
+            padding: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: all 0.3s;
+        }
+
+        .close-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .cart-items {
+            padding: 20px;
+        }
+
+        .empty-cart {
+            text-align: center;
+            color: #999;
+            padding: 40px 20px;
+            font-size: 16px;
+        }
+
+        .cart-item {
+            background: #fff5f7;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .cart-item-content {
+            display: flex;
+            gap: 16px;
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .cart-item-details {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+        }
+
+        .cart-item-price {
+            color: #e63946;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .quantity-btn {
+            background: white;
+            border: 1px solid #ddd;
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .quantity-btn:hover {
+            background: #f0f0f0;
+        }
+
+        .quantity {
+            font-weight: 600;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        .remove-btn {
+            margin-left: auto;
+            background: none;
+            border: none;
+            color: #dc2626;
+            cursor: pointer;
+            font-size: 20px;
+            padding: 4px;
+        }
+
+        .cart-item-subtotal {
+            text-align: right;
+            margin-top: 8px;
+            padding-top: 8px;
+            border-top: 1px solid #f0f0f0;
+        }
+
+        .subtotal-label {
+            color: #666;
+        }
+
+        .subtotal-amount {
+            font-weight: bold;
+            font-size: 18px;
+            margin-left: 8px;
+        }
+
+        .cart-footer {
+            border-top: 2px solid #f0f0f0;
+            padding: 20px;
+        }
+
+        .cart-footer.hidden {
+            display: none;
+        }
+
+        .total-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .total-label {
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .total-amount {
+            font-size: 32px;
+            font-weight: bold;
+            color: #e63946;
+        }
+
+        .whatsapp-input {
+            margin-bottom: 16px;
+        }
+
+        .whatsapp-input label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .whatsapp-input input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        .whatsapp-input input:focus {
+            outline: none;
+            border-color: #e63946;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            background: #25D366;
+            color: white;
+            border: none;
+            padding: 16px;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .checkout-btn:hover {
+            background: #20BA5A;
+        }
+
         .footer {
             background-color: #e63946;
             color: white;
@@ -185,11 +415,6 @@
             color: #25D366;
         }
 
-        .whatsapp-link span {
-            font-weight: bold;
-        }
-
-        /* BOTÓN FLOTANTE WHATSAPP */
         .whatsapp-float {
             position: fixed;
             width: 60px;
@@ -215,7 +440,6 @@
             height: 35px;
         }
 
-        /* BOTÓN MODO OSCURO */
         .theme-btn {
             position: fixed;
             bottom: 25px;
@@ -228,9 +452,9 @@
             cursor: pointer;
             font-size: 20px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            z-index: 300;
         }
 
-        /* MODO OSCURO */
         .dark-mode {
             background: #222;
             color: white;
@@ -238,6 +462,11 @@
 
         .dark-mode .product-card {
             background: #333;
+            color: white;
+        }
+
+        .dark-mode .product-name,
+        .dark-mode .product-stock {
             color: white;
         }
 
@@ -251,13 +480,16 @@
                 grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
                 gap: 16px;
             }
+            
+            .cart-sidebar {
+                max-width: 100%;
+            }
         }
     </style>
 </head>
 <body>
     <header class="header">
         <div class="container header-content">
-            <h1 class="logo">Lo de Lola</h1>
             <button id="cart-btn" class="cart-button">
                 🛒
                 <span id="cart-count" class="cart-count">0</span>
@@ -270,6 +502,40 @@
     <main class="container">
         <div id="products-grid" class="products-grid"></div>
     </main>
+
+    <div id="cart-modal" class="cart-modal hidden">
+        <div class="cart-sidebar">
+            <div class="cart-header">
+                <h2>Mi Carrito</h2>
+                <button id="close-cart" class="close-btn">✕</button>
+            </div>
+            
+            <div id="cart-items" class="cart-items">
+                <p class="empty-cart">Tu carrito está vacío</p>
+            </div>
+
+            <div id="cart-footer" class="cart-footer hidden">
+                <div class="total-section">
+                    <span class="total-label">Total:</span>
+                    <span id="cart-total" class="total-amount">$0</span>
+                </div>
+                
+                <div class="whatsapp-input">
+                    <label for="whatsapp-link">Link de WhatsApp</label>
+                    <input 
+                        type="text" 
+                        id="whatsapp-link" 
+                        placeholder="https://wa.me/59897846657"
+                        value="https://wa.me/59897846657"
+                    >
+                </div>
+
+                <button id="checkout-btn" class="checkout-btn">
+                    Comprar por WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
 
     <footer class="footer">
         <p>📍 Dirección: Cooperativa covsiol 2, casa 31</p>
@@ -307,26 +573,136 @@
             { id: 16, name: 'Coca Cola 3L', price: 220, image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTevvK52iTsr1BxdBJb9_rAgJG_uCjKSxo5qA&s', stock: 19 }
         ];
 
+        let cart = [];
+
         const productsGrid = document.getElementById('products-grid');
+        const cartBtn = document.getElementById('cart-btn');
+        const cartModal = document.getElementById('cart-modal');
+        const closeCartBtn = document.getElementById('close-cart');
+        const cartItemsContainer = document.getElementById('cart-items');
+        const cartCountElement = document.getElementById('cart-count');
+        const cartTotalElement = document.getElementById('cart-total');
+        const cartFooter = document.getElementById('cart-footer');
+        const checkoutBtn = document.getElementById('checkout-btn');
+        const whatsappLinkInput = document.getElementById('whatsapp-link');
+
         function renderProducts() {
-            productsGrid.innerHTML = products.map(p => `
+            productsGrid.innerHTML = products.map(product => `
                 <div class="product-card">
-                    <img src="${p.image}" alt="${p.name}" class="product-image">
+                    <img src="${product.image}" alt="${product.name}" class="product-image">
                     <div class="product-info">
-                        <h3 class="product-name">${p.name}</h3>
-                        <p class="product-price">$${p.price}</p>
-                        <p class="product-stock">Stock: ${p.stock}</p>
-                        <button class="add-to-cart-btn">Agregar al carrito</button>
+                        <h3 class="product-name">${product.name}</h3>
+                        <p class="product-price">$${product.price}</p>
+                        <p class="product-stock">Stock: ${product.stock}</p>
+                        <button class="add-to-cart-btn" onclick="addToCart(${product.id})">
+                            Agregar al carrito
+                        </button>
                     </div>
-                </div>`).join('');
+                </div>
+            `).join('');
         }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const cartItem = cart.find(item => item.id === productId);
+            
+            if (cartItem) {
+                cartItem.quantity++;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            
+            updateCart();
+        }
+
+        function updateQuantity(productId, change) {
+            const cartItem = cart.find(item => item.id === productId);
+            
+            if (cartItem) {
+                cartItem.quantity += change;
+                
+                if (cartItem.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCart();
+                }
+            }
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCart();
+        }
+
+        function updateCart() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            cartCountElement.textContent = totalItems;
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p class="empty-cart">Tu carrito está vacío</p>';
+                cartFooter.classList.add('hidden');
+            } else {
+                cartItemsContainer.innerHTML = cart.map(item => `
+                    <div class="cart-item">
+                        <div class="cart-item-content">
+                            <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                            <div class="cart-item-details">
+                                <h3 class="cart-item-name">${item.name}</h3>
+                                <p class="cart-item-price">$${item.price}</p>
+                                <div class="cart-item-controls">
+                                    <button class="quantity-btn" onclick="updateQuantity(${item.id}, -1)">−</button>
+                                    <span class="quantity">${item.quantity}</span>
+                                    <button class="quantity-btn" onclick="updateQuantity(${item.id}, 1)">+</button>
+                                    <button class="remove-btn" onclick="removeFromCart(${item.id})">🗑️</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="cart-item-subtotal">
+                            <span class="subtotal-label">Subtotal:</span>
+                            <span class="subtotal-amount">$${item.price * item.quantity}</span>
+                        </div>
+                    </div>
+                `).join('');
+                
+                cartFooter.classList.remove('hidden');
+            }
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotalElement.textContent = `$${total}`;
+        }
+
+        cartBtn.addEventListener('click', () => {
+            cartModal.classList.remove('hidden');
+        });
+
+        closeCartBtn.addEventListener('click', () => {
+            cartModal.classList.add('hidden');
+        });
+
+        cartModal.addEventListener('click', (e) => {
+            if (e.target === cartModal) {
+                cartModal.classList.add('hidden');
+            }
+        });
+
+        checkoutBtn.addEventListener('click', () => {
+            const whatsappLink = whatsappLinkInput.value;
+            
+            const message = `¡Hola! Quiero hacer un pedido de Lo de Lola:\n\n${cart.map(item => 
+                `• ${item.name} x${item.quantity} - $${item.price * item.quantity}`
+            ).join('\n')}\n\n*Total: $${cart.reduce((sum, item) => sum + (item.price * item.quantity), 0)}*`;
+            
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`${whatsappLink}?text=${encodedMessage}`, '_blank');
+        });
+
         renderProducts();
 
         // MODO OSCURO
-        const btn = document.getElementById('theme-toggle');
-        btn.addEventListener('click', () => {
-          document.body.classList.toggle('dark-mode');
-          btn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
+        const themeBtn = document.getElementById('theme-toggle');
+        themeBtn.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            themeBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌙';
         });
     </script>
 </body>
